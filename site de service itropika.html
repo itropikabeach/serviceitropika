@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Itropika Beach — Hôtel & Spa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght=500;600;700&family=Cormorant+Garamond:ital,wght=0,400;0,500;0,600;1,500&family=Jost:wght=300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sand:#faf4e6;
+    --sand-deep:#f1e7d1;
+    --teal:#0e5c63;
+    --teal-deep:#0a3d42;
+    --ink:#132a2e;
+    --gold:#dfba6b;       
+    --gold-soft:#f2e3be;  
+    --coral:#d97a52;
+    --line:rgba(19,42,46,0.12);
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0; width:100%; overflow-x:hidden;}
+  body{
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Jost',sans-serif;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Ambient background glow */
+  .wash{
+    position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(ellipse 900px 500px at 8% -5%, rgba(14,92,99,0.08), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 0%, rgba(195,154,92,0.12), transparent 55%),
+      radial-gradient(ellipse 800px 600px at 90% 100%, rgba(14,92,99,0.06), transparent 60%);
+  }
+
+  /* ---------- Header / Hero ---------- */
+  header{
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 60px 16px 30px;
+    text-align: center;
+    position: relative;
+  }
+  
+  .brand-logo-wrap {
+    width: 90px; 
+    margin: 0 auto 20px;
+    display: block;
+  }
+  .brand-logo {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0px 3px 8px rgba(14,92,99,0.08));
+  }
+
+  .brand-eyebrow{
+    font-family:'Cormorant SC', serif;
+    letter-spacing:0.3em;
+    font-size:13px;
+    color:var(--teal);
+    font-weight:600;
+  }
+  h1.brand{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:clamp(40px, 8vw, 72px);
+    margin:10px 0 0;
+    color:var(--teal-deep);
+    letter-spacing:0.01em;
+    line-height: 1.1;
+  }
+  h1.brand em{ font-style:italic; color:var(--gold); font-weight:500; }
+  
+  .brand-sub{
+    font-family:'Cormorant SC', serif;
+    font-size:14px;
+    letter-spacing:0.25em;
+    color:var(--ink);
+    opacity:0.6;
+    margin-top:10px;
+  }
+
+  .wave{
+    display:block; width:100%; height:24px; margin: 30px auto;
+    max-width: 600px;
+  }
+
+  /* ---------- Services Grid ---------- */
+  .services-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+  }
+
+  .service-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(19,42,46,0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(19,42,46,0.08);
+    border-color: var(--gold);
+  }
+
+  .card-img {
+    height: 240px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+
+  /* Elegant overlay over card images */
+  .card-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(19,42,46,0.4));
+  }
+
+  .card-content {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .card-category {
+    font-family: 'Cormorant SC', serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--teal-deep);
+    margin: 0 0 12px;
+    line-height: 1.2;
+  }
+
+  .card-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink);
+    opacity: 0.8;
+    margin: 0 0 24px;
+  }
+
+  .card-cta {
+    margin-top: auto;
+    font-family: 'Cormorant SC', serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--teal);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+  }
+
+  .service-card:hover .card-cta {
+    color: var(--gold);
+  }
+
+  .card-cta svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s;
+  }
+
+  .service-card:hover .card-cta svg {
+    transform: translateX(4px);
+  }
+
+  footer{
+    text-align:center; padding:40px 16px;
+    font-family:'Cormorant SC', serif;
+    letter-spacing:0.15em; font-size:11px;
+    color:var(--teal-deep); opacity:0.5;
+    border-top: 1px solid var(--line);
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    header { padding: 80px 24px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wash"></div>
+
+<header>
+  <div class="brand-logo-wrap">
+    <!-- Make sure logo.png is in the same directory -->
+    <img src="logo.png" alt="Itropika Beach Logo" class="brand-logo">
+  </div>
+  
+  <div class="brand-eyebrow">BIENVENUE À L'HÔTEL</div>
+  <h1 class="brand">Itropika <em>Beach</em></h1>
+  <div class="brand-sub">TABARKA · TUNISIE</div>
+
+  <svg class="wave" viewBox="0 0 800 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 100 0 200 20 T 400 20 T 600 20 T 800 20" fill="none" stroke="#0e5c63" stroke-width="1.2" opacity="0.35"/>
+    <path d="M0 26 Q 100 8 200 26 T 400 26 T 600 26 T 800 26" fill="none" stroke="#dfba6b" stroke-width="1.2" opacity="0.4"/>
+  </svg>
+</header>
+
+<main class="services-container">
+  <div class="services-grid">
+
+    <!-- Card 1: Restaurant & Bar (Points to your Food & Drink Menu page) -->
+    <a href="index.html" class="service-card">
+      <!-- High-quality fresh Mediterranean food & grill background image -->
+      <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80');"></div>
+      <div class="card-content">
+        <div class="card-category">Gastronomie & Cocktails</div>
+        <h2 class="card-title">La Carte Beach</h2>
+        <p class="card-desc">Découvrez nos grillades au barbecue de Tabarka, nos entrées fraîches, cocktails signatures, boissons locales et notre carte des vins.</p>
+        <div class="card-cta">
+          Voir la carte 
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 2: Sauna & Spa (Points to your Spa page) -->
+    <a href="spa.html" class="service-card">
+      <div class="card-img" style="background-image: url('slide2.png');"></div>
+      <div class="card-content">
+        <div class="card-category">Détente & Bien-être</div>
+        <h2 class="card-title">Sona & Spa</h2>
+        <p class="card-desc">Offrez-vous un moment de relaxation absolue. Massages apaisants, soins du corps sur mesure, sauna traditionnel et rituels bien-être.</p>
+        <div class="card-cta">
+          Découvrir le Spa 
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 3: Hotel Rooms / Accommodations -->
+    <a href="#chambres" class="service-card">
+      <div class="card-img" style="background-image: url('slide3.png');"></div>
+      <div class="card-content">
+        <div class="card-category">Séjour d'exception</div>
+        <h2 class="card-title">Nos Chambres & Suites</h2>
+        <p class="card-desc">Des havres de paix élégants avec vue imprenable sur la mer de Tabarka ou sur nos jardins verdoyants. Un confort moderne inégalé.</p>
+        <div class="card-cta">
+          Explorer les chambres 
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</main>
+
+<footer>ITROPIKA BEACH HOTEL · TUNISIE — TOUS DROITS RÉSERVÉS</footer>
+
+</body>
+</html>
