@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Itropika Beach — Carte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght=500;600;700&family=Cormorant+Garamond:ital,wght=0,400;0,500;0,600;1,500&family=Jost:wght=300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sand:#faf4e6;
+    --sand-deep:#f1e7d1;
+    --teal:#0e5c63;
+    --teal-deep:#0a3d42;
+    --ink:#132a2e;
+    --gold:#dfba6b;       
+    --gold-soft:#f2e3be;  
+    --coral:#d97a52;
+    --line:rgba(19,42,46,0.12);
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0; width:100%; overflow-x:hidden;}
+  body{
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Jost',sans-serif;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Dynamic Slideshow Background ---------- */
+  .bg-slideshow {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    overflow: hidden;
+    background: var(--sand);
+  }
+  .bg-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  .bg-slide.active {
+    opacity: 0.18; /* Elegant, subtle opacity to ensure menu legibility */
+  }
+
+  /* Soft ambient lighting overlay */
+  .wash{
+    position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(ellipse 900px 500px at 8% -5%, rgba(14,92,99,0.08), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 0%, rgba(195,154,92,0.12), transparent 55%),
+      radial-gradient(ellipse 800px 600px at 90% 100%, rgba(14,92,99,0.06), transparent 60%);
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    max-width: 960px;
+    margin: 0 auto;
+    padding:30px 16px 15px;
+    text-align:center;
+    position:relative;
+  }
+  
+  .brand-logo-wrap {
+    position: absolute;
+    left: 16px;
+    top: 30px;
+    width: 65px; 
+    display: block;
+    z-index: 10;
+  }
+  .brand-logo {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0px 2px 5px rgba(14,92,99,0.06));
+  }
+
+  .brand-eyebrow{
+    font-family:'Cormorant SC', serif;
+    letter-spacing:0.25em;
+    font-size:12px;
+    color:var(--teal);
+    font-weight:600;
+    padding-top: 5px; 
+  }
+  h1.brand{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:clamp(36px, 9vw, 64px);
+    margin:2px 0 0;
+    color:var(--teal-deep);
+    letter-spacing:0.01em;
+  }
+  h1.brand em{ font-style:italic; color:var(--gold); font-weight:500; }
+  .brand-sub{
+    font-family:'Cormorant SC', serif;
+    font-size:13px;
+    letter-spacing:0.3em;
+    color:var(--ink);
+    opacity:0.55;
+    margin-top:4px;
+    line-height:1.4;
+  }
+
+  .wave{
+    display:block; width:100%; height:24px; margin-top:16px;
+  }
+
+  /* ---------- Search ---------- */
+  .search-wrap{
+    max-width:520px; margin:15px auto 0; padding:0 16px;
+  }
+  .search-box{
+    position:relative;
+  }
+  .search-box input{
+    width:100%;
+    padding:12px 44px 12px 18px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:rgba(255, 255, 255, 0.9);
+    font-family:'Jost',sans-serif;
+    font-size:16px; 
+    color:var(--ink);
+    outline:none;
+    transition:border-color .2s, box-shadow .2s, background .2s;
+    -webkit-appearance: none;
+    backdrop-filter: blur(4px);
+  }
+  .search-box input:focus{
+    border-color:var(--gold);
+    background: #ffffff;
+    box-shadow:0 0 0 3px rgba(223,186,107,0.18);
+  }
+  .search-box svg{
+    position:absolute; right:16px; top:50%; transform:translateY(-50%);
+    width:17px; height:17px; opacity:0.45;
+  }
+
+  /* ---------- Tabs ---------- */
+  nav.tabs{
+    position:sticky; top:0; z-index:20;
+    background:rgba(250,244,230,0.92);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    margin-top:20px;
+  }
+  .tabs-inner{
+    max-width:960px; margin:0 auto;
+    display:flex; 
+    justify-content:flex-start; 
+    gap:4px;
+    overflow-x:auto;
+    padding:0 8px;
+    scrollbar-width:none; 
+    -webkit-overflow-scrolling:touch; 
+  }
+  .tabs-inner::-webkit-scrollbar{display:none;} 
+  
+  .tab-btn{
+    background:none; border:none; cursor:pointer;
+    font-family:'Cormorant SC', serif;
+    font-size:15px;
+    letter-spacing:0.1em;
+    color:var(--ink);
+    opacity:0.55;
+    padding:14px 14px 11px;
+    white-space:nowrap;
+    position:relative;
+    transition:opacity .2s, color .2s;
+  }
+  .tab-btn.active{ opacity:1; color:var(--teal-deep); font-weight:600; }
+  .tab-btn.active::after{
+    content:"";
+    position:absolute; left:14px; right:14px; bottom:0; height:3px;
+    background:var(--gold);
+    border-radius:2px;
+  }
+
+  /* Subsection pills */
+  .pillbar{
+    max-width:960px; margin:0 auto;
+    display:flex; gap:6px; 
+    overflow-x:auto; 
+    justify-content:flex-start;
+    white-space:nowrap;
+    padding:12px 16px 8px;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .pillbar::-webkit-scrollbar{display:none;}
+  
+  .pill{
+    font-family:'Jost',sans-serif;
+    font-size:13px; letter-spacing:0.02em;
+    color:var(--teal-deep);
+    background:rgba(241, 231, 209, 0.7);
+    border:1px solid var(--line);
+    padding:6px 14px;
+    border-radius:999px;
+    cursor:pointer;
+    text-decoration:none;
+    transition:background .2s, color .2s;
+    display:inline-block;
+    backdrop-filter: blur(4px);
+  }
+  .pill:hover{ background:var(--gold-soft); }
+
+  /* ---------- Content ---------- */
+  main{
+    max-width:960px; margin:0 auto; padding:0 16px 80px;
+  }
+  section.category{ display:none; animation:fadeIn .35s ease; }
+  section.category.show{ display:block; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  .group{ margin-top:30px; scroll-margin-top:110px; }
+  .group-title{
+    font-family:'Cormorant SC', serif;
+    font-size:22px;
+    letter-spacing:0.08em;
+    color:var(--teal-deep);
+    display:flex; align-items:center; gap:12px;
+    margin-bottom:4px;
+  }
+  .group-title::after{
+    content:""; flex:1; height:1px;
+    background:linear-gradient(to right, var(--gold-soft), transparent);
+  }
+
+  .items{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:0 40px;
+  }
+
+  .item{
+    padding:12px 0;
+    border-bottom:1px dashed var(--line);
+    display:flex; justify-content:space-between; gap:14px;
+    align-items:flex-start;
+  }
+  .item-text{ flex:1; min-width:0; }
+  .item-name{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:18px;
+    color:var(--ink);
+    line-height:1.25;
+    word-wrap:break-word;
+  }
+  .item-desc{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:14px;
+    color:var(--ink);
+    opacity:0.75;
+    margin-top:2px;
+    line-height:1.3;
+    word-wrap:break-word;
+  }
+  .item-price{
+    font-family:'Jost',sans-serif;
+    font-weight:600;
+    font-size:16px;
+    color:var(--teal);
+    white-space:nowrap;
+    text-align:right;
+    padding-top:1px;
+  }
+  
+  .price-pair{ text-align:right; white-space:nowrap; }
+  .price-pair .row{ font-size:14px; font-weight:600; color:var(--teal); line-height:1.3; }
+  .price-pair .row span.lbl{ font-weight:400; font-size:10px; color:var(--ink); opacity:0.5; margin-right:4px; letter-spacing:.05em; text-transform:uppercase;}
+
+  mark{ background:var(--gold-soft); color:inherit; border-radius:3px; padding:0 2px; }
+
+  .empty-state{
+    text-align:center; padding:50px 16px;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic; font-size:18px;
+    color:var(--ink); opacity:0.55;
+  }
+
+  footer{
+    text-align:center; padding:20px 16px 40px;
+    font-family:'Cormorant SC', serif;
+    letter-spacing:0.15em; font-size:11px;
+    color:var(--teal-deep); opacity:0.5;
+    line-height:1.4;
+  }
+
+  /* ---------- Tablet & Desktop adjustments ---------- */
+  @media (min-width:681px){
+    .tabs-inner{ justify-content:center; }
+    .pillbar{ justify-content:center; }
+    header{ padding:38px 24px 20px; }
+    .wave{ height:34px; }
+    .brand-logo-wrap { left: 24px; top: 38px; max-width: 80px; width: 100%; }
+  }
+
+  /* ---------- Mobile adjustments ---------- */
+  @media (max-width:680px){ 
+    .items{ grid-template-columns:1fr; } 
+    .group-title { font-size:20px; }
+    @media (max-width: 400px) {
+      .brand-eyebrow { padding-left: 55px; text-align: right; }
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Dynamic background container layers -->
+<div class="bg-slideshow">
+  <div class="bg-slide active" style="background-image: url('slide1.png');"></div>
+  <div class="bg-slide" style="background-image: url('slide2.png');"></div>
+  <div class="bg-slide" style="background-image: url('slide3.png');"></div>
+  <div class="bg-slide" style="background-image: url('4.png');"></div>
+</div>
+<div class="wash"></div>
+
+<header>
+  <div class="brand-logo-wrap">
+    <img src="logo.png" alt="Itropika Beach Logo" class="brand-logo">
+  </div>
+  
+  <div class="brand-eyebrow">ITROPIKA BEACH · TABARKA</div>
+  <h1 class="brand">La <em>Carte</em></h1>
+  <div class="brand-sub">BARBECUE · BAR · BOISSONS · VINS</div>
+
+  <svg class="wave" viewBox="0 0 800 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 100 0 200 20 T 400 20 T 600 20 T 800 20" fill="none" stroke="#0e5c63" stroke-width="1.2" opacity="0.35"/>
+    <path d="M0 26 Q 100 8 200 26 T 400 26 T 600 26 T 800 26" fill="none" stroke="#dfba6b" stroke-width="1.2" opacity="0.4"/>
+  </svg>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <input id="search" type="text" placeholder="Rechercher un plat, une boisson…" autocomplete="off">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#132a2e" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="tabs-inner" id="tabbar"></div>
+  <div class="pillbar" id="pillbar"></div>
+</nav>
+
+<main id="main"></main>
+
+<footer>ITROPIKA BEACH — TABARKA · MENU SUJET À CHANGEMENT SELON DISPONIBILITÉ</footer>
+
+<script>
+const DATA = {
+  bbq: {
+    label: "Carte BBQ",
+    groups: [
+      { title:"Entrées", items:[
+        {n:"Brik au thon", p:12},
+        {n:"Brik aux crevettes", p:14},
+      ]},
+      { title:"Salades", items:[
+        {n:"Salade César", d:"Laitue, tomate, fromage, poulet, crouton", p:24},
+        {n:"Salade Exotique", d:"Laitue, tomate, concombre, carotte râpée, jambon, ananas", p:26},
+        {n:"Salade pêcheur", d:"Fruit de mer et légumes vapeur", p:30},
+      ]},
+      { title:"Mezzés", items:[
+        {n:"Mezzé Terre", d:"2 personnes — Cotelettes, merguez, foie, brochettes de poulet", p:120},
+        {n:"Mezzé Mer", d:"2 personnes — Pêche du jour", p:120},
+        {n:"Mezzé ITROPIKA", d:"4 personnes — Combo Mezzé terre & mer", p:220},
+      ]},
+      { title:"Pâtes", items:[
+        {n:"Puttanesca", p:26},
+        {n:"Bolognaise", p:34},
+        {n:"Fruits de mer", p:42},
+        {n:"4 fromages (Bianca)", d:"Mozza, gruyère, crème roquefort & Parmesan", p:33},
+      ]},
+      { title:"Viandes", items:[
+        {n:"Cotelettes d'agneau", p:52},
+        {n:"Filet de veau grillé", p:59},
+      ]},
+      { title:"Volailles", items:[
+        {n:"Escalope de dinde grillé", p:27},
+        {n:"Escalope de dinde panée", p:27},
+        {n:"Cuisse de poulet désossée marinée", p:25},
+        {n:"Suprêmes de volaille à la crème citronnée", p:30},
+        {n:"Cordon bleu du chef", p:33},
+        {n:"Escalope à la crème", d:"champignon et roquefort", p:37},
+      ]},
+      { title:"Poissons", items:[
+        {n:"Crevettes pannées", p:30},
+        {n:"Crevettes sautées",d: "l'ail et au persil", p:30},
+        {n:"Crevettes royales grillées", d:"6 pièces", p:69},
+        {n:"Beignets de calamars", p:31},
+        {n:"Daurade / Loup Grillé", d:"100gr", p:17},
+        {n:"Moules marinières", p:28},
+        {n:"Pêche du jour de Tabarka", d:"Selon disponibilité", p:28},
+      ]},
+      { title:"Crêpes", items:[
+        {n:"Chocolat", p:12},
+        {n:"chocolat/amande", p:16},
+      ]},
+      { title:"Pizzas", items:[
+        {n:"Margherita", d:"Tomates fraîches, mozzarella, olives", p:24},
+        {n:"Végétarienne", d:"Tomates fraîches, mozzarella, olives, légumes", p:26},
+        {n:"Neptune", d:"Tomates fraîches, mozzarella, olives, thon", p:28},
+        {n:"Mexicaine", d:"Boeuf haché, oignon, poivron vert, piment rouge & ail", p:29},
+        {n:"4 fromages", d:"Mozzarella, gruyère, crème roquefort & Parmesan", p:35},
+        {n:"Fruits de mer", d:"Tomates fraîches, mozzarella, fruit de mer", p:36},
+      ]},
+      { title:"Burgers", items:[
+        {n:"Plat frite", d:"Mayonnaise + ketchup", p:12},
+        {n:"Classic cheeseburger", p:17},
+        {n:"Big cheeseburger", d:"Double boeuf haché + double fromage", p:23},
+      ]},
+      { title:"Dessert", items:[
+        {n:"Sorbet à la menthe fraîche et au citron", p:9},
+        {n:"Gâteau du jour", p:14},
+        {n:"Glace", d:"1 boule", p:3},
+        {n:"Assiette de fruits", p:28},
+      ]},
+    ]
+  },
+  bar: {
+    label:"Carte Bar",
+    groups:[
+      { title:"Cocktails alcoolisés", items:[
+        {n:"Mojito", d:"Rhum blanc, Schweppes bitter lemon, citron vert, menthe fraîche, sucre roux", p:19},
+        {n:"Pina Colada", d:"Rhum blanc, rhum ambré, jus d'ananas, lait de coco, crème", p:16},
+        {n:"White Russian", d:"Vodka, liqueur de café, crème", p:17},
+        {n:"Sex on the Beach", d:"Vodka, liqueur de pêche, jus de citron vert, jus d'orange, jus de canneberge", p:21},
+        {n:"Long Island Iced Tea", d:"Vodka, triple sec, tequila, rhum, gin, jus de citron vert, coca cola", p:22},
+        {n:"Swimming Pool", d:"Vodka, rhum, curaçao bleu, jus d'ananas, sirop de coco, crème", p:21},
+        {n:"B 52", d:"Triple sec, Baileys, liqueur de café", p:18},
+      ]},
+      { title:"Cocktails non alcoolisés", items:[
+        {n:"Virgin Mojito", d:"Schweppes bitter lemon, citron vert, menthe fraîche, sucre roux", p:17},
+        {n:"Virgin Colada", d:"Jus d'ananas, sirop de noix de coco, crème", p:16},
+        {n:"Dolce Vita", d:"Sirop de cerise, grenadine, jus d'ananas, jus de citron", p:16},
+        {n:"Strawberry Kiss", d:"Sirop de fraise, jus de fraise, jus d'orange, jus de citron, jus d'ananas", p:18},
+      ]},
+      { title:"Bières", items:[
+        {n:"Celtia", p:7.5},
+        {n:"Heineken", p:8},
+        {n:"Beck's", p:8},
+        {n:"Bière sans alcool", p:6},
+      ]},
+      { title:"Apéritifs", items:[
+        {n:"Pastis", p:17},
+        {n:"Ricard", p:17},
+        {n:"Campari", p:16},
+        {n:"Martini Blanc", p:15},
+        {n:"Martini Rouge", p:15},
+        {n:"Rhum St James", p:10},
+        {n:"Rhum", p:9},
+        {n:"Boukha", p:9},
+      ]},
+      { title:"Digestifs", items:[
+        {n:"Cognac", p:20},
+        {n:"Benedictine", p:17},
+        {n:"Triple Sec", p:12},
+        {n:"Crèmes", d:"Bananes / Cacaos / Cassis", p:13},
+        {n:"Grand Marnier", p:11},
+        {n:"Jet27", p:17},
+        {n:"Thibarine", p:13},
+        {n:"Bardinet", p:11},
+      ]},
+      { title:"Whiskeys", pair:true, items:[
+        {n:"Johnnie Walker Double Black", dose:31, bot:490},
+        {n:"Johnnie Walker Black Label", dose:27, bot:420},
+        {n:"Johnnie Walker Red Label", dose:19, bot:290},
+        {n:"Chivas", dose:29, bot:430},
+        {n:"Jack Daniels", dose:25, bot:null},
+        {n:"Ballantine's", dose:23, bot:null},
+        {n:"Grant's", dose:18, bot:null},
+        {n:"J&B", dose:15, bot:null},
+        {n:"Williams Peel", dose:13, bot:null},
+      ]},
+      { title:"Vodkas", pair:true, items:[
+        {n:"Grey Goose", dose:27, bot:490},
+        {n:"Belvedère", dose:27, bot:470},
+        {n:"Absolut", dose:19, bot:330},
+        {n:"Smirnoff", dose:14, bot:200},
+        {n:"Smirnoff Ace", dose:19, bot:null},
+      ]},
+      { title:"Gins", items:[
+        {n:"Gordon's", p:19},
+        {n:"Mayfair", p:11},
+        {n:"Gibson's", p:10},
+      ]},
+      { title:"Tequilas", items:[
+        {n:"Tequila locale", p:9},
+        {n:"Tequila importée", p:13},
+      ]},
+    ]
+  },
+  boissons:{
+    label:"Boissons",
+    groups:[
+      { title:"Boissons chaudes", items:[
+        {n:"Café express", p:5},
+        {n:"Café capsule", p:6},
+        {n:"Macchiato", d:"Capucin", p:5.5},
+        {n:"Café crème", p:6},
+        {n:"Chocolat au lait", p:5},
+        {n:"Verre de lait", p:3},
+        {n:"Thé infusion", d:"Divers arômes", p:4.5},
+        {n:"Verveine", p:4.5},
+        {n:"Thé à la menthe", p:4},
+        {n:"Thé aux amandes", p:8},
+        {n:"Thé aux pignons", p:9},
+      ]},
+      { title:"Nos jus", items:[
+        {n:"Citronnade", p:8},
+        {n:"Citronnade aux amandes", p:9},
+        {n:"Jus de fruits frais", d:"Selon saisons", p:8},
+        {n:"Jus aromatisés", p:3},
+        {n:"Dose de sirop", d:"Menthe / Grenadine / Amande", p:1},
+      ]},
+      { title:"Boissons fraîches", items:[
+        {n:"Eau plate", p:4},
+        {n:"Eau gazéifiée", p:5},
+        {n:"Boissons énergisantes", d:"Shark / Red Bull", p:14},
+        {n:"Sodas", p:5},
+        {n:"Sodas light", p:5},
+        {n:"Schweppes", d:"Tonic / agrumes", p:6},
+        {n:"Bières sans alcool", d:"Divers arômes", p:6},
+      ]},
+      { title:"Nos smoothies", items:[
+        {n:"Banane & Kiwi", p:16},
+        {n:"Banane & Dattes", p:16},
+        {n:"Banane & Amandes", p:16},
+        {n:"Cocktail de fruits", p:19},
+      ]},
+      { title:"Al Majlis", items:[
+        {n:"Bakraj", d:"Thé à la menthe + amandes + makroudh", p:16},
+        {n:"Chicha", d:"Divers arômes", p:30},
+        {n:"Café Turc", p:6},
+      ]},
+    ]
+  },
+  vins:{
+    label:"Carte des Vins",
+    groups:[
+      { title:"Vins Blancs", items:[
+        {n:"Ugni Blanc", p:37},
+        {n:"Ugni Blanc 1/2", p:20},
+        {n:"Muscat", p:44},
+        {n:"Chardonnay", p:48},
+        {n:"Magon Blanc", p:45},
+        {n:"Magon Blanc 1/2", p:25},
+        {n:"Jour et Nuit Blanc", p:65},
+        {n:"Jour et Nuit Blanc 1/2", p:40},
+        {n:"Shadrapa Blanc", p:53},
+        {n:"Selian Blanc", p:58},
+        {n:"Verdejo", p:71},
+        {n:"Kurubis Blanc", p:76},
+      ]},
+      { title:"Vins Mousseux", items:[
+        {n:"Kiss by Kurubis Blanc", p:76},
+        {n:"Kiss by Kurubis Rosé", p:76},
+      ]},
+      { title:"Vins Rosés", items:[
+        {n:"Château Rosé", p:39},
+        {n:"Château Rosé 1/2", p:22},
+        {n:"Magon Rosé", p:45},
+        {n:"Magon Rosé 1/2", p:26},
+        {n:"Désir Rosé", p:60},
+        {n:"Jour et Nuit Rosé", p:65},
+        {n:"Jour et Nuit Rosé 1/2", p:40},
+        {n:"Didona Rosé", p:65},
+        {n:"Magon Signature Rosé", p:65},
+        {n:"Selian Rosé 3/4", p:65},
+        {n:"Pétale Rosé", p:48},
+      ]},
+      { title:"Champagnes", items:[
+        {n:"Selon disponibilité", p:null, note:"À voir"},
+      ]},
+      { title:"Vins Rouge", items:[
+        {n:"Château Rouge", p:43},
+        {n:"Magon Rouge", p:45},
+        {n:"Magon Rouge 1/2", p:26},
+        {n:"Vieux Magon", p:70},
+        {n:"Vieux Magon 1/2", p:40},
+        {n:"Jour et Nuit Rouge", p:70},
+        {n:"Jour et Nuit Rouge 1/2", p:40},
+        {n:"Didona Rouge", p:60},
+        {n:"Didona Reserve Rouge", p:80},
+        {n:"Shadrapa Rouge", p:80},
+        {n:"Selian Rouge", p:60},
+        {n:"Grand Patron Rouge", p:60},
+        {n:"Vieux Magnifique Rouge", p:70},
+        {n:"Phenicia Rouge", p:65},
+        {n:"Kurubis Rouge", p:80},
+        {n:"Magon Signature Rouge 3/4", p:65},
+      ]},
+    ]
+  }
+};
+
+const tabbar = document.getElementById('tabbar');
+const pillbar = document.getElementById('pillbar');
+const main = document.getElementById('main');
+const searchInput = document.getElementById('search');
+
+let activeTab = Object.keys(DATA)[0];
+
+function slug(s){ return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-'); }
+
+function fmtPrice(item, tabKey){
+  if(tabKey === 'bar' && DATA[tabKey] && item.dose !== undefined){
+    return `<div class="price-pair">
+      <div class="row"><span class="lbl">Dose</span>${item.dose} DT</div>
+      ${item.bot ? `<div class="row"><span class="lbl">Bout.</span>${item.bot} DT</div>` : ''}
+    </div>`;
+  }
+  if(item.note){ return `<div class="item-price">${item.note}</div>`; }
+  return `<div class="item-price">${item.p !== null ? item.p + ' DT' : ''}</div>`;
+}
+
+function buildTabs(){
+  Object.entries(DATA).forEach(([key, tab])=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (key===activeTab ? ' active':'');
+    btn.textContent = tab.label;
+    btn.onclick = ()=>{ activeTab = key; searchInput.value=''; render(); };
+    btn.dataset.key = key;
+    tabbar.appendChild(btn);
+  });
+}
+
+function buildPills(){
+  pillbar.innerHTML = '';
+  DATA[activeTab].groups.forEach(g=>{
+    const a = document.createElement('a');
+    a.className = 'pill';
+    a.textContent = g.title;
+    a.href = '#' + slug(g.title);
+    pillbar.appendChild(a);
+  });
+}
+
+function highlight(text, q){
+  if(!q) return text;
+  const idx = text.toLowerCase().indexOf(q.toLowerCase());
+  if(idx === -1) return text;
+  return text.slice(0,idx) + '<mark>' + text.slice(idx, idx+q.length) + '</mark>' + text.slice(idx+q.length);
+}
+
+function render(){
+  document.querySelectorAll('.tab-btn').forEach(b=> b.classList.toggle('active', b.dataset.key===activeTab));
+  buildPills();
+
+  const q = searchInput.value.trim();
+  main.innerHTML = '';
+
+  let totalMatches = 0;
+
+  Object.entries(DATA).forEach(([key, tab])=>{
+    const section = document.createElement('section');
+    section.className = 'category' + (key===activeTab && !q ? ' show' : (q ? ' show' : ''));
+    if(!q) section.classList.toggle('show', key===activeTab);
+
+    let sectionHasMatch = false;
+
+    tab.groups.forEach(g=>{
+      const matchedItems = q ? g.items.filter(it => (it.n+' '+(it.d||'')).toLowerCase().includes(q.toLowerCase())) : g.items;
+      if(q && matchedItems.length===0) return;
+      if(q && key!==activeTab && matchedItems.length===0) return;
+
+      sectionHasMatch = true;
+      totalMatches += matchedItems.length;
+
+      const groupEl = document.createElement('div');
+      groupEl.className = 'group';
+      groupEl.id = slug(g.title);
+      groupEl.innerHTML = `<div class="group-title">${g.title}</div>`;
+
+      const itemsEl = document.createElement('div');
+      itemsEl.className = 'items';
+
+      matchedItems.forEach(it=>{
+        const row = document.createElement('div');
+        row.className = 'item';
+        row.innerHTML = `
+          <div class="item-text">
+            <div class="item-name">${highlight(it.n,q)}</div>
+            ${it.d ? `<div class="item-desc">${highlight(it.d,q)}</div>` : ''}
+          </div>
+          ${fmtPrice(it, key)}
+        `;
+        itemsEl.appendChild(row);
+      });
+
+      groupEl.appendChild(itemsEl);
+      section.appendChild(groupEl);
+    });
+
+    if(q){
+      section.classList.toggle('show', sectionHasMatch);
+      if(sectionHasMatch){
+        const label = document.createElement('div');
+        label.className = 'group-title';
+        label.style.marginTop = '46px';
+        label.style.opacity = '0.5';
+        label.textContent = tab.label;
+        section.insertBefore(label, section.firstChild);
+      }
+    }
+
+    main.appendChild(section);
+  });
+
+  if(q && totalMatches===0){
+    main.innerHTML = `<div class="empty-state">Aucun résultat pour « ${q} ». Essayez un autre mot.</div>`;
+  }
+}
+
+// ---------- Background Slideshow Logic ----------
+function initSlideshow() {
+  const slides = document.querySelectorAll('.bg-slide');
+  let currentSlide = 0;
+
+  setInterval(() => {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add('active');
+  }, 3000); // 3 seconds interval[cite: 4]
+}
+
+searchInput.addEventListener('input', render);
+buildTabs();
+render();
+initSlideshow();
+</script>
+</body>
+</html>
