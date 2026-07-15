@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Itropika Beach — Hammam & Spa Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Cormorant+SC:wght=500;600;700&family=Cormorant+Garamond:ital,wght=0,400;0,500;0,600;1,500&family=Jost:wght=300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sand:#faf4e6;
+    --sand-deep:#f1e7d1;
+    --teal:#0e5c63;
+    --teal-deep:#0a3d42;
+    --ink:#132a2e;
+    --gold:#dfba6b;       
+    --line:rgba(19,42,46,0.12);
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Jost', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  .wash{
+    position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background: radial-gradient(ellipse 900px 500px at 8% -5%, rgba(14,92,99,0.06), transparent 60%);
+  }
+
+  header{
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 30px 16px 15px;
+    text-align: center;
+  }
+  .brand-logo {
+    max-width: 70px;
+    height: auto;
+    margin: 0 auto 12px;
+    display: block;
+  }
+  .brand-eyebrow{
+    font-family:'Cormorant SC', serif;
+    letter-spacing:0.3em; font-size:12px; color:var(--teal); font-weight:600;
+  }
+  h1.brand{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600; font-size:clamp(32px, 6vw, 54px);
+    color:var(--teal-deep); margin:8px 0;
+  }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    text-decoration: none; color: var(--teal); font-family: 'Cormorant SC', serif;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.1em; margin-bottom: 20px;
+  }
+
+  /* Navigation Tabs - Mobile Optimized Scroll */
+  .tabs-nav {
+    display: flex; justify-content: center; gap: 8px;
+    max-width: 800px; margin: 20px auto 25px; padding: 0 16px;
+  }
+  .tab-btn {
+    background: transparent; border: 1px solid var(--line);
+    padding: 10px 20px; font-family: 'Cormorant SC', serif;
+    font-weight: 600; font-size: 14px; letter-spacing: 0.05em;
+    color: var(--teal-deep); cursor: pointer; border-radius: 4px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+  .tab-btn.active, .tab-btn:hover {
+    background: var(--teal); color: #fff; border-color: var(--teal);
+  }
+
+  /* Content Sections */
+  .menu-container {
+    max-width: 900px; margin: 0 auto 60px; padding: 0 16px;
+  }
+  .menu-section { display: none; }
+  .menu-section.active { display: block; animation: fadeIn 0.4s ease; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Section Banner Image */
+  .section-banner {
+    width: 100%;
+    height: 160px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border: 1px solid var(--line);
+    box-shadow: 0 5px 15px rgba(19,42,46,0.03);
+  }
+
+  /* Item Cards with Thumbnail Option */
+  .menu-item {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 4px; padding: 20px; margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(19,42,46,0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .item-layout-row {
+    display: flex;
+    gap: 20px;
+  }
+
+  .item-thumb {
+    width: 110px;
+    height: 110px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px;
+    flex-shrink: 0;
+    border: 1px solid var(--line);
+  }
+
+  .item-main-content {
+    flex-grow: 1;
+    width: 100%;
+  }
+
+  .item-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    border-bottom: 1px dashed var(--line); padding-bottom: 10px; margin-bottom: 10px;
+    gap: 12px;
+  }
+  .item-title-group { flex-grow: 1; }
+  .item-title-fr { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--teal-deep); line-height: 1.2; }
+  .item-title-en { font-size: 13px; color: var(--teal); font-weight: 500; text-transform: uppercase; margin-top: 2px; }
+  .item-title-ar { font-family: 'Cairo', sans-serif; font-size: 17px; font-weight: 700; color: #b18e46; text-align: right; margin-top: 4px; direction: rtl; line-height: 1.3; }
+  
+  .item-meta { text-align: right; min-width: 80px; flex-shrink: 0; }
+  .item-price { font-family: 'Jost', sans-serif; font-size: 19px; font-weight: 600; color: var(--teal-deep); white-space: nowrap; }
+  .item-duration { font-size: 12px; color: #777; letter-spacing: 0.05em; margin-top: 1px; white-space: nowrap; }
+
+  /* Multilingual Descriptions */
+  .item-desc-block { display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; line-height: 1.45; }
+  .desc-fr { color: var(--ink); opacity: 0.9; }
+  .desc-en { color: #555; font-style: italic; }
+  .desc-ar { font-family: 'Cairo', sans-serif; color: #333; text-align: right; direction: rtl; font-size: 13px; }
+
+  /* Specific Layout for Extras */
+  .extras-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  
+  .extra-card { 
+    background: var(--card); border: 1px solid var(--line); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 4px 12px rgba(19,42,46,0.02);
+  }
+  .extra-card-img {
+    height: 130px;
+    background-size: cover;
+    background-position: center;
+  }
+  .extra-card-body {
+    padding: 16px; text-align: center;
+  }
+  .extra-price { font-size: 20px; font-weight: 600; color: var(--teal); margin: 8px 0 0; }
+
+  footer{
+    text-align:center; padding:25px 16px; font-family:'Cormorant SC', serif;
+    letter-spacing:0.15em; font-size:11px; color:var(--teal-deep); opacity:0.5;
+    border-top: 1px solid var(--line); max-width: 960px; margin: 0 auto;
+  }
+
+  /* High-Performance Mobile Layout Adjustments */
+  @media (max-width: 650px) {
+    header { padding-top: 20px; }
+    .brand-logo { max-width: 55px; margin-bottom: 10px; }
+    h1.brand { margin: 5px 0; }
+    
+    .tabs-nav {
+      justify-content: flex-start;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+      margin-bottom: 15px;
+      scrollbar-width: none; /* Hide scrollbar for Firefox */
+    }
+    .tabs-nav::-webkit-scrollbar { display: none; } /* Hide scrollbar for Chrome/Safari */
+    .tab-btn { padding: 8px 16px; font-size: 13px; }
+
+    .section-banner { height: 120px; margin-bottom: 15px; }
+
+    .item-layout-row {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .item-thumb {
+      width: 100%;
+      height: 140px;
+    }
+    .item-header {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    .extras-grid {
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+    .extra-card-img { height: 110px; }
+    .extra-card-body { padding: 12px; }
+    .extra-card-body .item-title-fr { font-size: 15px; }
+    .extra-card-body .item-title-ar { font-size: 14px; text-align: center; }
+    .extra-price { font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wash"></div>
+
+<header>
+  <a href="site de service itropika.html" class="back-btn">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+    Retour à l'accueil
+  </a>
+  <img src="logo.png" alt="Itropika Beach Logo" class="brand-logo">
+  <div class="brand-eyebrow">ITROPIKA BEACH</div>
+  <h1 class="brand">Hammam &amp; Spa Menu</h1>
+  <div style="font-size:13px; opacity:0.7;">Tél : 50.380.873</div>
+</header>
+
+<div class="tabs-nav">
+  <button class="tab-btn active" onclick="openTab(event, 'massages')">Massages / التدليك</button>
+  <button class="tab-btn" onclick="openTab(event, 'hammam')">Soins Hammam / الحمام</button>
+  <button class="tab-btn" onclick="openTab(event, 'supplements')">Suppléments / الإضافات</button>
+</div>
+
+<main class="menu-container">
+
+  <!-- ================= TABS: MASSAGES ================= -->
+  <section id="massages" class="menu-section active">
+    
+    <div class="section-banner" style="background-image: url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1200&q=80');"></div>
+
+    <!-- Item 1 -->
+    <div class="menu-item">
+      <div class="item-layout-row">
+        <div class="item-thumb" style="background-image: url('https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=300&q=80');"></div>
+        <div class="item-main-content">
+          <div class="item-header">
+            <div class="item-title-group">
+              <div class="item-title-fr">Massage Anti-Stress</div>
+              <div class="item-title-en">Anti-Stress Massage</div>
+              <div class="item-title-ar">تدليك مضاد للتوتر والضغط النفسي</div>
+            </div>
+            <div class="item-meta">
+              <div class="item-price">75 DT</div>
+              <div class="item-duration">50 mn</div>
+            </div>
+          </div>
+          <div class="item-desc-block">
+            <p class="desc-fr">Un massage fluide et enveloppant pour libérer les tensions nerveuses et harmoniser le corps.</p>
+            <p class="desc-en">A smooth, enveloping massage designed to release nervous tension and restore body harmony.</p>
+            <p class="desc-ar">تدليك انسيابي وشامل يهدف إلى التخلص من التوتر العصبي وإعادة التوازن والراحة للجسم.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="menu-item">
+      <div class="item-layout-row">
+        <div class="item-thumb" style="background-image: url('https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=300&q=80');"></div>
+        <div class="item-main-content">
+          <div class="item-header">
+            <div class="item-title-group">
+              <div class="item-title-fr">Massage Anti-Jambes Lourdes</div>
+              <div class="item-title-en">Heavy Legs Relief Massage</div>
+              <div class="item-title-ar">تدليك لتخفيف ثقل الساقين</div>
+            </div>
+            <div class="item-meta">
+              <div class="item-price">60 DT</div>
+              <div class="item-duration">40 mn</div>
+            </div>
+          </div>
+          <div class="item-desc-block">
+            <p class="desc-fr">Soin ciblé stimulant la circulation sanguine pour retrouver des jambes légères et fraîches.</p>
+            <p class="desc-en">Targeted care stimulating blood circulation to regain light, refreshed legs.</p>
+            <p class="desc-ar">علاج مستهدف يحفز الدورة الدموية لإعادة الخفة والانتعاش للساقين المتعبتين.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="menu-item">
+      <div class="item-layout-row">
+        <div class="item-thumb" style="background-image: url('https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=300&q=80');"></div>
+        <div class="item-main-content">
+          <div class="item-header">
+            <div class="item-title-group">
+              <div class="item-title-fr">Massage Spécial - Dos</div>
+              <div class="item-title-en">Special Back Massage</div>
+              <div class="item-title-ar">تدليك خاص بالظهر</div>
+            </div>
+            <div class="item-meta">
+              <div class="item-price">40 DT</div>
+              <div class="item-duration">20 mn</div>
+            </div>
+          </div>
+          <div class="item-desc-block">
+            <p class="desc-fr">Concentré sur les zones de tension du dos, des épaules et de la nuque pour un soulagement rapide.</p>
+            <p class="desc-en">Focused on tension areas in the back, shoulders, and neck for rapid relief.</p>
+            <p class="desc-ar">يركز بشكل مكثف على مناطق التشنج في الظهر والكتفين والرقبة لتخفيف الآلام بسرعة.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 4 -->
+    <div class="menu-item">
+      <div class="item-layout-row">
+        <div class="item-thumb" style="background-image: url('https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=300&q=80');"></div>
+        <div class="item-main-content">
+          <div class="item-header">
+            <div class="item-title-group">
+              <div class="item-title-fr">Massage Relaxant</div>
+              <div class="item-title-en">Relaxing Massage</div>
+              <div class="item-title-ar">تدليك مهدئ ومريح</div>
+            </div>
+            <div class="item-meta">
+              <div class="item-price">50 DT</div>
+              <div class="item-duration">30 mn</div>
+            </div>
+          </div>
+          <div class="item-desc-block">
+            <p class="desc-fr">Manœuvres douces et apaisantes procurant une sensation immédiate de bien-être absolu.</p>
+            <p class="desc-en">Gentle, soothing techniques providing an immediate sensation of absolute well-being.</p>
+            <p class="desc-ar">حركات ناعمة ومهدئة تمنحك شعوراً فورياً بالراحة النفسية والجسدية المطلقة.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ================= TABS: HAMMAM ================= -->
+  <section id="hammam" class="menu-section">
+    
+    <div class="section-banner" style="background-image: url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80');"></div>
+
+    <div class="menu-item">
+      <div class="item-main-content">
+        <div class="item-header">
+          <div class="item-title-group">
+            <div class="item-title-fr">Hammam Vapeur</div>
+            <div class="item-title-en">Steam Hammam</div>
+            <div class="item-title-ar">حمام بخار</div>
+          </div>
+          <div class="item-meta"><div class="item-price">30 DT</div><div class="item-duration">30 mn</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-main-content">
+        <div class="item-header">
+          <div class="item-title-group">
+            <div class="item-title-fr">Hammam + Gommage Traditionnel</div>
+            <div class="item-title-en">Hammam + Traditional Scrub</div>
+            <div class="item-title-ar">حمام + تقشير تقليدي (كيس)</div>
+          </div>
+          <div class="item-meta"><div class="item-price">40 DT</div><div class="item-duration">45 mn</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-main-content">
+        <div class="item-header">
+          <div class="item-title-group">
+            <div class="item-title-fr">Hammam + Enveloppement d’Algues Marines</div>
+            <div class="item-title-en">Hammam + Seaweed Wrap</div>
+            <div class="item-title-ar">حمام + لفافة الأعشاب البحرية غنية بالمعادن</div>
+          </div>
+          <div class="item-meta"><div class="item-price">55 DT</div><div class="item-duration">50 mn</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-main-content">
+        <div class="item-header">
+          <div class="item-title-group">
+            <div class="item-title-fr">Hammam + Enveloppement Ghassoul</div>
+            <div class="item-title-en">Hammam + Ghassoul Clay Wrap</div>
+            <div class="item-title-ar">حمام + لفافة الطين المغربي (الغاسول) منقي للبشرة</div>
+          </div>
+          <div class="item-meta"><div class="item-price">50 DT</div><div class="item-duration">50 mn</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cryotherapy Group -->
+    <div class="menu-item" style="border-left: 3px solid var(--gold);">
+      <div style="font-family:'Cormorant SC'; font-size:12px; color:var(--gold); font-weight:600; margin-bottom:10px; letter-spacing:0.05em;">CRYOTHÉRAPIE LOCALE / علاج تبريد موضعي</div>
+      
+      <div style="margin-bottom:15px;">
+        <div class="item-header" style="border:none; padding:0; margin:0; gap:10px;">
+          <div class="item-title-group">
+            <div class="item-title-fr" style="font-size:17px; line-height:1.3;">Hammam + Enveloppement Local Cryothérapie — Spécial Mal de Dos</div>
+          </div>
+          <div class="item-meta"><div class="item-price">55 DT</div><div class="item-duration">45 mn</div></div>
+        </div>
+        <div class="item-title-ar" style="font-size:14px; margin-top:6px;">حمام + لفافة تبريد موضعية — خاصة لآلام الظهر</div>
+      </div>
+
+      <div style="margin-bottom:15px; border-top: 1px solid var(--line); padding-top:12px;">
+        <div class="item-header" style="border:none; padding:0; margin:0; gap:10px;">
+          <div class="item-title-group">
+            <div class="item-title-fr" style="font-size:17px; line-height:1.3;">Hammam + Enveloppement Local Cryothérapie — Spécial Jambe Lourde</div>
+          </div>
+          <div class="item-meta"><div class="item-price">59 DT</div><div class="item-duration">45 mn</div></div>
+        </div>
+        <div class="item-title-ar" style="font-size:14px; margin-top:6px;">حمام + لفافة تبريد موضعية — خاصة لثقل الساقين</div>
+      </div>
+
+      <div style="border-top: 1px solid var(--line); padding-top:12px;">
+        <div class="item-header" style="border:none; padding:0; margin:0; gap:10px;">
+          <div class="item-title-group">
+            <div class="item-title-fr" style="font-size:17px; line-height:1.3;">Hammam + Enveloppement Local Cryothérapie — Spécial Douleur Articulaire</div>
+          </div>
+          <div class="item-meta"><div class="item-price">50 DT</div><div class="item-duration">45 mn</div></div>
+        </div>
+        <div class="item-title-ar" style="font-size:14px; margin-top:6px;">حمام + لفافة تبريد موضعية — خاصة لآلام المفاصل</div>
+      </div>
+    </div>
+
+    <!-- Cures & Packs -->
+    <div class="menu-item">
+      <div class="item-layout-row">
+        <div class="item-thumb" style="background-image: url('https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=300&q=80');"></div>
+        <div class="item-main-content">
+          <div class="item-header">
+            <div class="item-title-group">
+              <div class="item-title-fr">Cure Spécial Amincissement (Miel & Cire d'Abeille)</div>
+              <div class="item-title-en">Special Slimming Treatment (Honey & Beeswax)</div>
+              <div class="item-title-ar">برنامج خاص للتنحيف (بالعسل وشمع النحل)</div>
+            </div>
+            <div class="item-meta"><div class="item-price">60 DT</div><div class="item-duration">60 mn</div></div>
+          </div>
+          <div class="item-desc-block">
+            <p class="desc-fr">Hammam + Gommage + Enveloppement à la cire amincissante à base de miel.</p>
+            <p class="desc-ar">حمام + تقشير + لفافة الشمع المُنحّف والقائم على فوائد العسل الطبيعي.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-main-content">
+        <div class="item-header">
+          <div class="item-title-group">
+            <div class="item-title-fr">Hammam + Gommage + Enveloppement d'Algues Marines</div>
+            <div class="item-title-en">Hammam + Scrub + Seaweed Wrap</div>
+            <div class="item-title-ar">حمام + تقشير + لفافة الأعشاب البحرية بالكامل</div>
+          </div>
+          <div class="item-meta"><div class="item-price">70 DT</div><div class="item-duration">60 mn</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item" style="border: 1px solid var(--gold);">
+      <div class="item-layout-row">
+        <div class="item-thumb" style="background-image: url('https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&fit=crop&w=300&q=80');"></div>
+        <div class="item-main-content">
+          <div class="item-header">
+            <div class="item-title-group">
+              <div class="item-title-fr" style="color:var(--teal-deep);">Hammam + Gommage + Enveloppement Algue Marine + Massage Oriental de 15mn.
+
+</div>
+              <div class="item-title-en"> </div>
+              <div class="item-title-ar">حمام متكامل + تقشير + لفافة أعشاب بحرية + تدليك شرقي مهدئ لمدة 15 دقيقة.
+
+</div>
+            </div>
+            <div class="item-meta"><div class="item-price">89 DT</div><div class="item-duration">1h 15mn</div></div>
+          </div>
+          <div class="item-desc-block">
+            <p class="desc-fr"></p>
+            <p class="desc-en">Full Hammam + Scrub + Seaweed Wrap + 15mn Oriental Massage.</p>
+            <p class="desc-ar">حمام متكامل + تقشير + لفافة أعشاب بحرية + تدليك شرقي مهدئ لمدة 15 دقيقة.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ================= TABS: SUPPLEMENTS ================= -->
+  <section id="supplements" class="menu-section">
+    
+    <div style="font-family:'Cormorant SC'; font-size:14px; color:var(--teal); font-weight:600; margin-bottom:20px; text-align:center; letter-spacing:0.05em;">SUPPLÉMENTS SOINS &amp; PRODUITS / منتجات وإضافات العناية</div>
+    
+    <div class="extras-grid">
+      <div class="extra-card">
+        <div class="extra-card-img" style="background-image: url('https://mon-porte-savon.com/cdn/shop/articles/2096890_w5021h3765c1cx2511cy1598cxt0cyt0cxb5021cyb3195.jpg?v=1719828115&width=1500');"></div>
+        <div class="extra-card-body">
+          <div class="item-title-fr">Application Savon Noir</div>
+          <div class="item-title-ar">صابون مغربي أسود</div>
+          <div class="extra-price">10 DT</div>
+        </div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-card-img" style="background-image: url('https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=400&q=80');"></div>
+        <div class="extra-card-body">
+          <div class="item-title-fr">Modelage Corps</div>
+          <div class="item-title-ar">مساج وتشكيل الجسم</div>
+          <div class="extra-price">20 DT</div>
+        </div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-card-img" style="background-image: url('https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80');"></div>
+        <div class="extra-card-body">
+          <div class="item-title-fr">Gel Apaisant Corporel</div>
+          <div class="item-title-ar">جل مهدئ وملطف للجسم</div>
+          <div class="extra-price">28 DT</div>
+        </div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-card-img" style="background-image: url('https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=400&q=80');"></div>
+        <div class="extra-card-body">
+          <div class="item-title-fr">Savon Royal (Nila)</div>
+          <div class="item-title-ar">الصابون الملكي النيلة</div>
+          <div class="extra-price">24 DT</div>
+        </div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-card-img" style="background-image: url('https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=400&q=80');"></div>
+        <div class="extra-card-body">
+          <div class="item-title-fr">Masque Purifiant</div>
+          <div class="item-title-ar">قناع لتنقية الوجه</div>
+          <div class="extra-price">29 DT</div>
+        </div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-card-img" style="background-image: url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=400&q=80');"></div>
+        <div class="extra-card-body">
+          <div class="item-title-fr">Savon Noir Brut</div>
+          <div class="item-title-ar">صابون أسود طبيعي</div>
+          <div class="extra-price">21 DT</div>
+        </div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-card-img" style="background-image: url('https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=400&q=80');"></div>
+        <div class="extra-card-body">
+          <div class="item-title-fr">Pain de Savon (Argile)</div>
+          <div class="item-title-ar">قالب صابون الطين</div>
+          <div class="extra-price">16 DT</div>
+        </div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-card-img" style="background-image: url('https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=400&q=80');"></div>
+        <div class="extra-card-body">
+          <div class="item-title-fr">Pain de Savon (Nila)</div>
+          <div class="item-title-ar">قالب صابون النيلة</div>
+          <div class="extra-price">19 DT</div>
+        </div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-card-img" style="background-image: url('https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=400&q=80');"></div>
+        <div class="extra-card-body">
+          <div class="item-title-fr">Supplément Savon Nila</div>
+          <div class="item-title-ar">إضافة صابون النيلة</div>
+          <div class="extra-price">10 DT</div>
+        </div>
+      </div>
+      <div class="extra-card" style="border: 1px dashed var(--gold);">
+        <div class="extra-card-img" style="background-image: url('https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80');"></div>
+        <div class="extra-card-body">
+          <div class="item-title-fr" style="font-weight:700;">Baume Miracle</div>
+          <div class="item-title-ar">البلسم المعجزة</div>
+          <div class="extra-price" style="color:var(--gold);">28 DT</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>ITROPIKA BEACH HOTEL · TABARKA · TUNISIE</footer>
+
+<script>
+function openTab(evt, tabName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("menu-section");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+    x[i].classList.remove("active");
+  }
+  tablinks = document.getElementsByClassName("tab-btn");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].classList.remove("active");
+  }
+  document.getElementById(tabName).style.display = "block";
+  setTimeout(function(){
+    document.getElementById(tabName).classList.add("active");
+  }, 10);
+  evt.currentTarget.classList.add("active");
+}
+</script>
+
+</body>
+</html>
