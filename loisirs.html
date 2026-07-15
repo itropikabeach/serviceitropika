@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loisirs & Détentes | Itropika Beach Resort</title>
+    <!-- Google Fonts for Luxury Aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0a1828; /* Premium Deep Deep Blue */
+            --accent: #d4af37;  /* Refined Luxury Gold */
+            --text-dark: #2d3748;
+            --text-light: #f7fafc;
+            --bg-light: #faf9f6; 
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Navigation & Custom Logo Bar */
+        nav {
+            background-color: #ffffff;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: center; /* Center logo globally */
+            align-items: center;
+            border-bottom: 2px solid var(--accent);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-image {
+            height: 100px; /* Highly visible but elegant height */
+            width: auto;
+            transition: var(--transition);
+        }
+
+        /* LIGHT & ELEGANT HEADER SECTION (Replaced Black Header) */
+        header {
+            background-color: #ffffff;
+            padding: 60px 20px;
+            text-align: center;
+            color: var(--primary);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .header-tag {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .header-sub {
+            max-width: 650px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            color: #5a6578;
+            font-weight: 400;
+        }
+
+        /* Main Wrapper */
+        .wrapper {
+            max-width: 1200px;
+            margin: 40px auto 80px auto;
+            padding: 0 20px;
+        }
+
+        /* Advanced Gallery Cards Grid */
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Safe size for all mobile widths */
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(10, 24, 40, 0.04);
+            transition: var(--transition);
+            border: 1px solid rgba(212, 175, 55, 0.12);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(10, 24, 40, 0.1);
+            border-color: var(--accent);
+        }
+
+        /* Image Containers utilizing requested image assets */
+        .img-container {
+            height: 300px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            background-color: #eaeaea;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .card:hover .card-img {
+            transform: scale(1.06);
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-category {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: #5a6578;
+            line-height: 1.6;
+        }
+
+        /* Language Grid Layout */
+        .lang-section {
+            background-color: #fff;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .section-headline {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-headline::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+            margin: 12px auto 0 auto;
+        }
+
+        .lang-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .lang-card {
+            padding-top: 10px;
+        }
+
+        .lang-label {
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--accent);
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lang-label span {
+            font-size: 1.1rem;
+        }
+
+        .lang-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .lang-text {
+            color: #5a6578;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        /* RTL adjustments for Arabic */
+        .lang-card.rtl {
+            direction: rtl;
+            text-align: right;
+        }
+
+        .lang-card.rtl .lang-label {
+            justify-content: flex-start;
+        }
+
+        /* ADVANCED MOBILE OPTIMIZATIONS */
+        @media (max-width: 768px) {
+            nav { 
+                padding: 10px 20px; 
+            }
+            .logo-image { 
+                height: 75px; /* Scales logo beautifully on mobile */
+            }
+            header {
+                padding: 40px 15px;
+            }
+            h1 { 
+                font-size: 2rem; 
+            }
+            .header-sub {
+                font-size: 0.95rem;
+            }
+            .img-container {
+                height: 230px; /* Reduced card image height for compact viewing on screens */
+            }
+            .lang-section { 
+                padding: 30px 20px; 
+            }
+            .lang-grid { 
+                gap: 30px; 
+            }
+            .lang-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Premium Navigation Bar with CentCentered Logo -->
+    <nav>
+        <a href="#" class="logo-container">
+            <img src="logo.png" alt="Itropika Beach Tabarka Logo" class="logo-image">
+        </a>
+    </nav>
+
+    <!-- Clean Light Header (No Black Background) -->
+    <header>
+        <span class="header-tag">Exclusive Wellness & Escape</span>
+        <h1>Loisirs & Détentes</h1>
+        <p class="header-sub">Experience the ultimate coastal escape at Itropika Beach Resort, featuring pristine shorelines and sparkling waters.</p>
+    </header>
+
+    <div class="wrapper">
+        
+        <!-- Highly Responsive Gallery Grid -->
+        <section class="showcase-grid">
+            
+            <!-- Card 1: Pool Showcase utilizing new direct image link -->
+            <div class="card">
+                <div class="img-container">
+                    <img src="hotel-itropika-beach.jpg" alt="The Grand Outdoor Pool" class="card-img">
+                </div>
+                <div class="card-content">
+                    <span class="card-category">Oasis</span>
+                    <h3 class="card-title">The Grand Outdoor Pool</h3>
+                    <p class="card-desc">An architectural masterpiece designed to offer continuous relaxation under the sun with panoramic views.</p>
+                </div>
+            </div>
+
+            <!-- Card 2: Beach Showcase utilizing new direct image link -->
+            <div class="card">
+                <div class="img-container">
+                    <img src="beach.jpg" alt="Pristine Sand Beach" class="card-img">
+                </div>
+                <div class="card-content">
+                    <span class="card-category">Serenity</span>
+                    <h3 class="card-title">Pristine Sand Beach</h3>
+                    <p class="card-desc">Unwind on private sunbeds, surrounded by soft golden sands and the calming rhythm of natural shorelines.</p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Professional Multilingual Text Section -->
+        <section class="lang-section">
+            <h2 class="section-headline">Luxury Redefined</h2>
+            
+            <div class="lang-grid">
+                
+                <!-- English Version -->
+                <div class="lang-card">
+                    <div class="lang-label"><span>🇬🇧</span> English</div>
+                    <h3 class="lang-title">A Sanctuary of Well-Being</h3>
+                    <p class="lang-text">
+                        To guarantee your absolute comfort and well-being, Itropika Beach features a spectacular outdoor swimming pool situated directly on the oceanfront, complemented by a pristine private sandy beach and an indoor heated pool. Additionally, guests can indulge in our modern, state-of-the-art spa and wellness center, meticulously curated to provide an unforgettable sensory escape during your stay.
+                    </p>
+                </div>
+
+                <!-- French Version -->
+                <div class="lang-card">
+                    <div class="lang-label"><span>🇫🇷</span> Français</div>
+                    <h3 class="lang-title">Sérénité & Bien-Être</h3>
+                    <p class="lang-text">
+                        Afin de garantir votre confort absolu et votre bien-être, Itropika Beach est doté d'une somptueuse piscine extérieure offrant un accès direct à la plage de sable fin, ainsi que d'une piscine couverte chauffée. De plus, notre établissement abrite un centre de spa moderne et richement équipé, idéal pour vous ressourcer et savourer des instants de détente mémorables tout au long de votre séjour.
+                    </p>
+                </div>
+
+                <!-- Arabic Version -->
+                <div class="lang-card rtl">
+                    <div class="lang-label"><span>🇸🇦</span> العربية</div>
+                    <h3 class="lang-title">ملاذ الرفاهية والراحة</h3>
+                    <p class="lang-text">
+                        حرصاً منا على ضمان راحتكم المطلقة ورفاهيتكم، تم تجهيز فندق إيتروبيكا بيش (Itropika Beach) بمسبح خارجي فاخر يطل مباشرة على الشاطئ، بالإضافة إلى شاطئ رملي خاص ومسبح مغطى ودافئ. كما يضم الفندق مركز سبا متطور ومجهز بأرقى التجهيزات الحديثة، ليمنحكم تجربة استرخاء فريدة واستثنائية تضمن لكم قضاء إقامة لا تُنسى.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
