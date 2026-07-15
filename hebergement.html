@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itropika Beach Tabarka - Hébergement & Divertissement</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #0a1d37;       /* Royal Deep Navy Blue */
+            --accent-gold: #d4af37;   /* Elegant Metallic Gold from Logo */
+            --text-dark: #1e293b;     /* Slate Dark Text */
+            --text-muted: #64748b;    /* Slate Muted Text */
+            --light-blue: #f1f5f9;    /* Clean background tint */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8fafc;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* --- STUNNING NAVIGATION BAR --- */
+        .navbar {
+            background-color: var(--bg-dark);
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+            z-index: 100;
+        }
+
+        .nav-logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-logo-area img {
+            height: 55px;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .nav-brand-text {
+            color: #ffffff;
+        }
+
+        .nav-brand-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .nav-brand-text span {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #ffffff;
+            opacity: 0.8;
+        }
+
+        /* Mobile Hamburger Button */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 110;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 3px;
+            background-color: #ffffff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-gold);
+            border-bottom: 2px solid var(--accent-gold);
+            padding-bottom: 5px;
+        }
+
+        /* --- HERO HEADER BAR WITH CURVED BADGE --- */
+        .hero-title-bar {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #112d4e 100%);
+            padding: 40px 8% 60px 8%;
+            text-align: center;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .hero-title-bar h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .hero-title-bar p {
+            font-size: 1rem;
+            color: var(--accent-gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        /* --- CENTRAL CONTENT CARD CANVAS --- */
+        .main-container {
+            max-width: 1200px;
+            margin: -30px auto 60px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* --- LEFT COLUMN: AUTOMATIC SLIDER (3 SECONDS) --- */
+        .slider-section {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 550px;
+            overflow: hidden;
+        }
+
+        .slides-wrapper {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-frame {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(10, 29, 55, 0.9) 0%, rgba(10, 29, 55, 0.4) 70%, transparent 100%);
+            padding: 40px;
+            color: #ffffff;
+        }
+
+        .slider-caption h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+        }
+
+        .slider-caption p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Progress Bar Indicators */
+        .slider-dots {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 30px;
+            height: 4px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 2px;
+            transition: background 0.3s;
+        }
+
+        .dot.active {
+            background: var(--accent-gold);
+        }
+
+        /* --- RIGHT COLUMN: DETAILED INFO AREA --- */
+        .info-section {
+            padding: 50px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .section-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.1rem;
+            color: var(--bg-dark);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .intro-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        /* Feature Rows Layout */
+        .amenity-block {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .amenity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .amenity-icon {
+            font-size: 1.6rem;
+            color: var(--bg-dark);
+            background-color: var(--light-blue);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 1px solid rgba(10, 29, 55, 0.1);
+        }
+
+        .amenity-text h4 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--bg-dark);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .amenity-text p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        /* Arabic Override Alignments */
+        .rtl-box {
+            direction: rtl;
+            font-family: 'Cairo', sans-serif;
+            text-align: right;
+        }
+
+        /* --- CHANNEL DISPLAY MATRIX --- */
+        .channels-showcase {
+            background-color: var(--light-blue);
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        .channels-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            color: var(--bg-dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logos-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        /* Recreating the vector/image logos clean representations */
+        .channel-badge {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        /* Personalized color badges for authentic TV network identity matches */
+        .ch-watanya { background-color: #ce1126; } /* Tunisian National Red/White Theme */
+        .ch-hiwar { background-color: #bf1e2e; }   /* El Hiwar El Tounsi Bold Crimson */
+        .ch-attessia { background-color: #1e3a8a; }/* Attessia Navy */
+        .ch-france { background-color: #e1001a; }  /* France 2 / France Télévisions Bright Red */
+        .ch-tf1 { background-color: #00539f; }     /* TF1 Royal Blue */
+        .ch-mbc { background-color: #5c2d91; }     /* MBC Purple Theme */
+        .ch-news { background-color: #27272a; }    /* International News (BBC/CNN/Al Jazeera) Dark Slate */
+
+        .channel-badge span {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            margin-left: 4px;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        /* --- PREMIUM CONVENIENT FOOTER --- */
+        .footer-bar {
+            background-color: var(--bg-dark);
+            padding: 30px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-socials a {
+            color: #ffffff;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .footer-socials a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* --- RESPONSIVE OPTIMIZATION (UPDATED FOR PHONE ACCESSIBILITY) --- */
+        @media (max-width: 992px) {
+            .navbar {
+                padding: 15px 5%;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-dark);
+                padding: 20px;
+                gap: 20px;
+                text-align: center;
+                border-top: 1px solid rgba(255,255,255,0.1);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links a:hover, .nav-links a.active {
+                border-bottom: none;
+                color: var(--accent-gold);
+            }
+            .hero-title-bar {
+                padding: 40px 20px;
+            }
+            .hero-title-bar h2 {
+                font-size: 1.8rem;
+            }
+            .main-container {
+                grid-template-columns: 1fr;
+                margin: 15px;
+                border-radius: 8px;
+            }
+            .slider-section {
+                min-height: 300px;
+                height: 350px;
+            }
+            .slider-caption {
+                padding: 20px;
+            }
+            .slider-caption h3 {
+                font-size: 1.4rem;
+            }
+            .info-section {
+                padding: 35px 20px;
+            }
+            .section-headline {
+                font-size: 1.6rem;
+            }
+            .amenity-item {
+                gap: 15px;
+            }
+            .logos-grid {
+                justify-content: center;
+            }
+            .footer-bar {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+                padding: 20px;
+            }
+        }
+
+        /* Hamburger Animation */
+        .menu-toggle.open span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 5px);
+        }
+        .menu-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-toggle.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. HEADER LOGO & INTERACTIVE NAVIGATION -->
+    <nav class="navbar">
+        <div class="nav-logo-area">
+            <img src="logo.png" alt="Itropika Beach Logo">
+            <div class="nav-brand-text">
+                <h1>ITROPIKA</h1>
+                <span>Beach Tabarka</span>
+            </div>
+        </div>
+        <button class="menu-toggle" id="mobileMenuBtn" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="" class="active"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+        </ul>
+    </nav>
+
+    <!-- 2. LUXURY TOP TITLE HERO BAR -->
+    <header class="hero-title-bar">
+        <h2>Divertissement & Confort Premium</h2>
+        <p>L'excellence hôtelière 4 étoiles à bord de la mer de Tabarka</p>
+    </header>
+
+    <!-- 3. COMPACT MULTILINGUAL PAGE MATRIX -->
+    <main class="main-container">
+        
+        <!-- AUTOMATIC BACKGROUND IMAGES CAROUSEL (3 SECONDS SLIDER) -->
+        <section class="slider-section">
+            <div class="slider-dots">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+
+            <div class="slides-wrapper" id="carouselEngine">
+                <div class="slide-frame">
+                    <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1100&q=80" alt="Chambre de luxe Itropika">
+                    <div class="slider-caption">
+                        <h3>Suites Vue sur Mer</h3>
+                        <p>Éveillez vos sens face aux magnifiques paysages marins et côtiers de Tabarka.</p>
+                    </div>
+                </div>
+                <div class="slide-frame">
+                    <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1100&q=80" alt="Literie d'Exception">
+                    <div class="slider-caption">
+                        <h3>Espace Élite Relax</h3>
+                        <p>Une insonorisation absolue combinée à une architecture épurée pour un repos total.</p>
+                    </div>
+                </div>
+                <div class="slide-frame">
+                    <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1100&q=80" alt="Divertissement TV Smart">
+                    <div class="slider-caption">
+                        <h3>Technologie Intégrée</h3>
+                        <p>Restez connectés au monde grâce à nos installations audiovisuelles connectées haut de gamme.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DATA & MULTILINGUAL DETAILS (FRENCH / ENGLISH / ARABIC) -->
+        <section class="info-section">
+            <div>
+                <h3 class="section-headline">Divertissement en Chambre</h3>
+                <p class="intro-text">
+                    L'hôtel Itropika Beach s'engage à rendre votre séjour mémorable en vous offrant une combinaison parfaite de confort de sommeil haut de gamme et d'un accès illimité aux médias internationaux.
+                </p>
+
+                <div class="amenity-block">
+                    <!-- French Block: TV Setups -->
+                    <div class="amenity-item">
+                        <div class="amenity-icon"><i class="fa-solid fa-tv"></i></div>
+                        <div class="amenity-text">
+                            <h4>Chaînes Multiples & SMART TV</h4>
+                            <p>Écrans LED plats de dernière génération connectés aux satellites pour capter en haute définition tous vos programmes favoris.</p>
+                        </div>
+                    </div>
+
+                    <!-- English Block: Beds Comfort -->
+                    <div class="amenity-item">
+                        <div class="amenity-icon"><i class="fa-solid fa-bed"></i></div>
+                        <div class="amenity-text">
+                            <h4>PREMIUM BED COMFORT</h4>
+                            <p>Orthopedic elite mattresses covered with pristine 400-thread count cotton sheets, customized pillows, and ergonomic mattress toppers.</p>
+                        </div>
+                    </div>
+
+                    <!-- Arabic Block: Masterful Combined Summary -->
+                    <div class="amenity-item rtl-box">
+                        <div class="amenity-icon" style="margin-left: 20px;"><i class="fa-solid fa-star"></i></div>
+                        <div class="amenity-text">
+                            <h4>أسرة مريحة و ترفيه متكامل</h4>
+                            <p>استمتعوا بنوم عميق وهادئ مع أسرّتنا الطبية الفاخرة، بالإضافة إلى باقة قنوات تلفزيونية تونسية وعالمية ممتعة تلبي جميع الأذواق.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHANNELS LOGO DISPLAY CASE (Tunisian, French, International) -->
+            <div class="channels-showcase">
+                <div class="channels-title">
+                    <i class="fa-solid fa-satellite-dish"></i> Chaînes Nationales & Internationales Disponibles
+                </div>
+                <div class="logos-grid">
+                    <!-- Tunisian National & Main Local Channels -->
+                    <div class="channel-badge ch-watanya">Watanya <span>1 & 2</span></div>
+                    <div class="channel-badge ch-hiwar">El Hiwar</div>
+                    <div class="channel-badge ch-attessia">Attessia <span>TV</span></div>
+                    
+                    <!-- French Channels -->
+                    <div class="channel-badge ch-france">France <span>2 / 24</span></div>
+                    <div class="channel-badge ch-tf1">TF1 <span>HD</span></div>
+                    
+                    <!-- Pan-Arab & Premium Entertainment Networks -->
+                    <div class="channel-badge ch-mbc">MBC <span>Group</span></div>
+                    <div class="channel-badge ch-news">Al Jazeera / BBC</div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- 4. FOOTER CREDITS & SOCIAL MAP -->
+    <footer class="footer-bar">
+        <div>© 2026 Itropika Beach Hotel Tabarka. Tous droits réservés.</div>
+        <div class="footer-socials">
+        </div>
+    </footer>
+
+    <!-- MOBILE NAV TOGGLE & AUTO-SLIDER SCRIPTS -->
+    <script>
+        // --- MOBILE NAVBAR ENGINE ---
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('open');
+        });
+
+        // Close menu when clicking outside on mobile devices
+        document.addEventListener('click', (event) => {
+            if (!mobileMenuBtn.contains(event.target) && !navLinks.contains(event.target)) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('open');
+            }
+        });
+
+        // --- AUTOMATIC IMAGE SLIDER TIMED ENGINE (3 SECONDS ACCURATE INTERVAL) ---
+        let slideIndex = 0;
+        const carouselEngine = document.getElementById('carouselEngine');
+        const dots = document.querySelectorAll('.dot');
+        const maxSlides = dots.length;
+
+        function runCarousel() {
+            slideIndex = (slideIndex + 1) % maxSlides;
+            carouselEngine.style.transform = `translateX(-${slideIndex * 100}%)`;
+            
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === slideIndex);
+            });
+        }
+
+        setInterval(runCarousel, 3000);
+    </script>
+</body>
+</html>
