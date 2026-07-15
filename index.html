@@ -93,14 +93,14 @@
 
   /* ---------- Services Grid ---------- */
   .services-container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px 80px;
   }
 
   .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     gap: 30px;
   }
 
@@ -165,7 +165,7 @@
   }
 
   .card-desc {
-    font-size: 15px;
+    font-size: 14.5px;
     line-height: 1.6;
     color: var(--ink);
     opacity: 0.8;
@@ -237,44 +237,85 @@
 <main class="services-container">
   <div class="services-grid">
 
-    <!-- Card 1: Restaurant & Bar (Points to your Food & Drink Menu page) -->
-    <a href="index2.html" class="service-card">
-      <!-- High-quality fresh Mediterranean food & grill background image -->
-      <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80');"></div>
-      <div class="card-content">
-        <div class="card-category">Gastronomie & Cocktails</div>
-        <h2 class="card-title">La Carte Beach</h2>
-        <p class="card-desc">Découvrez nos grillades au barbecue de Tabarka, nos entrées fraîches, cocktails signatures, boissons locales et notre carte des vins.</p>
-        <div class="card-cta">
-          Voir la carte 
-          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-        </div>
-      </div>
-    </a>
-
-    <!-- Card 2: Sauna & Spa (Points to your Spa page) -->
-    <a href="spa.html" class="service-card">
-      <div class="card-img" style="background-image: url('slide2.png');"></div>
-      <div class="card-content">
-        <div class="card-category">Détente & Bien-être</div>
-        <h2 class="card-title">Sona & Spa</h2>
-        <p class="card-desc">Offrez-vous un moment de relaxation absolue. Massages apaisants, soins du corps sur mesure, sauna traditionnel et rituels bien-être.</p>
-        <div class="card-cta">
-          Découvrir le Spa 
-          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-        </div>
-      </div>
-    </a>
-
-    <!-- Card 3: Hotel Rooms / Accommodations -->
-    <a href="#chambres" class="service-card">
-      <div class="card-img" style="background-image: url('slide3.png');"></div>
+    <!-- Card 1: Hébergement -->
+    <a href="hebergement.html" class="service-card">
+      <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80');"></div>
       <div class="card-content">
         <div class="card-category">Séjour d'exception</div>
-        <h2 class="card-title">Nos Chambres & Suites</h2>
-        <p class="card-desc">Des havres de paix élégants avec vue imprenable sur la mer de Tabarka ou sur nos jardins verdoyants. Un confort moderne inégalé.</p>
+        <h2 class="card-title">Hébergement</h2>
+        <p class="card-desc">L'hôtel dispose de 06 suites richement équipées, un appartement suite et 144 chambres spacieuses et lumineuses, agréablement aménagées et décorées avec balcons, vue sur mer ou forêt.</p>
         <div class="card-cta">
-          Explorer les chambres 
+          Découvrir les chambres 
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 2: Restauration -->
+    <a href="restauration.html" class="service-card">
+      <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80');"></div>
+      <div class="card-content">
+        <div class="card-category">Gastronomie & Saveurs</div>
+        <h2 class="card-title">Restauration</h2>
+        <p class="card-desc">Pour satisfaire vos papilles gustatives, profitez de plusieurs options : le restaurant buffet "Les Arcades", notre barbecue face à la mer, notre bar chaleureux avec cheminée ou notre café maure.</p>
+        <div class="card-cta">
+          Voir nos restaurants 
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 3: Loisirs & Détentes -->
+    <a href="loisirs.html" class="service-card">
+      <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80');"></div>
+      <div class="card-content">
+        <div class="card-category">Détente & Piscines</div>
+        <h2 class="card-title">Loisirs & Détentes</h2>
+        <p class="card-desc">L'hôtel est équipé d'une grande piscine extérieure donnant directement sur la plage, ainsi que d'une piscine couverte chauffée et d'un centre de spa moderne pour vous détendre pleinement.</p>
+        <div class="card-cta">
+          Découvrir nos installations 
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 4: Activités & Animations -->
+    <a href="activites.html" class="service-card">
+      <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80');"></div>
+      <div class="card-content">
+        <div class="card-category">Divertissement & Énergie</div>
+        <h2 class="card-title">Activités & Animations</h2>
+        <p class="card-desc">Jeux de piscine, volley-ball, pétanque, soirées dansantes, ou activités extérieures sur mesure (randonnées, quad, plongée sous-marine et réservation de parcours de golf).</p>
+        <div class="card-cta">
+          Explorer les activités 
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 5: Séminaires & Conférences -->
+    <a href="seminaires.html" class="service-card">
+      <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80');"></div>
+      <div class="card-content">
+        <div class="card-category">Événements Professionnels</div>
+        <h2 class="card-title">Séminaires & Conférences</h2>
+        <p class="card-desc">Une grande salle de conférence accueillant jusqu'à 500 personnes et des salles de sous-commission idéales pour vos congrès, banquets et cérémonies de mariage.</p>
+        <div class="card-cta">
+          Organiser un événement 
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 6: Hammam & Spa -->
+    <a href="spa.html" class="service-card">
+      <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80');"></div>
+      <div class="card-content">
+        <div class="card-category">Bien-être absolu</div>
+        <h2 class="card-title">Hammam & Spa</h2>
+        <p class="card-desc">Profitez d'une ambiance apaisante et relaxante grâce à notre Hammam traditionnel, nos salles de massage secs et hydro, ainsi que notre centre d'esthétique entièrement équipé.</p>
+        <div class="card-cta">
+          Découvrir le Spa 
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
         </div>
       </div>
