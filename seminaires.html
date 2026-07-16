@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Séminaires & Conférences - Itropika Beach Hotel</title>
+    <style>
+        :root {
+            --primary: #0a4f70;
+            --secondary: #d4af37;
+            --dark: #2b2b2b;
+            --light: #f8f9fa;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(rgba(10, 79, 112, 0.85), rgba(10, 79, 112, 0.85)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Tabs Navigation */
+        .tab-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .tab-btn {
+            background-color: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(10, 79, 112, 0.3);
+        }
+
+        /* Dynamic Content Sections */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .content-section.active {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .content-section.active {
+                grid-template-columns: 1fr;
+            }
+            .tab-navigation {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .content-text {
+            padding: 20px;
+        }
+
+        .content-text h2 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .content-text h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary);
+            margin-top: 8px;
+        }
+
+        .content-text p {
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 1.05rem;
+        }
+
+        .features-list {
+            list-style: none;
+        }
+
+        .features-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+            font-weight: 500;
+        }
+
+        .features-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* Simulated Images with CSS placeholders highlighting the actual space details */
+        .content-image {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            height: 400px;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            color: white;
+            background-size: cover;
+            background-position: center;
+        }
+
+        #meeting-img {
+            background-image: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80');
+        }
+
+        #sub-img {
+            background-image: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=800&q=80');
+        }
+
+        #marriage-img {
+            background-image: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=800&q=80');
+        }
+
+        .image-placeholder h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .image-placeholder p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            color: #eee;
+        }
+
+        /* Footer styling */
+        footer {
+            margin-top: 60px;
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin-bottom: 5px;
+        }
+
+        footer .highlight {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Séminaires & Conférences</h1>
+        <p>Itropika Beach Hotel — Des espaces modulables pour tous vos moments d'exception</p>
+    </header>
+
+    <div class="container">
+        <!-- Tab Buttons for Interactive Space Switching -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" onclick="switchTab('meetings')">Grande Salle de Conférence</button>
+            <button class="tab-btn" onclick="switchTab('subcommissions')">Salles de Sous-commission</button>
+            <button class="tab-btn" onclick="switchTab('weddings')">Cérémonies & Banquets</button>
+        </div>
+
+        <!-- Section 1: Grande Salle de Conférence (Professional Meetings) -->
+        <div id="meetings" class="content-section active">
+            <div class="content-text">
+                <h2>Grande Salle de Conférence</h2>
+                <p>Pour vos assemblées, congrès d'envergure ou présentations professionnelles majeures, notre grande salle offre une configuration optimale alliant prestige et technologie.</p>
+                <p>Notre personnel rigoureux et créatif est à votre entière disposition pour orchestrer des événements complets et personnalisés, assurant la réussite technique et logistique de vos interventions.</p>
+                <ul class="features-list">
+                    <li>Capacité d'accueil exceptionnelle allant jusqu'à <strong>500 personnes</strong></li>
+                    <li>Écran de projection géant de haute qualité et scène dédiée</li>
+                    <li>Configurations adaptables (U, classe, théâtre, banquets)</li>
+                    <li>Assistance technique et équipement sonore de pointe</li>
+                </ul>
+            </div>
+            <div class="content-image">
+                <div id="meeting-img" class="image-placeholder">
+                    <h3>Grande Salle Itropika</h3>
+                    <p>Scène principale et configuration modulable pour congrès</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Salles de Sous-commission -->
+        <div id="subcommissions" class="content-section">
+            <div class="content-text">
+                <h2>Salles de Sous-commission</h2>
+                <p>Pour des réunions de travail plus intimes, des ateliers créatifs ou des sessions de brainstorming, Itropika Beach Hotel met à disposition plusieurs espaces de taille intermédiaire parfaitement agencés.</p>
+                <p>Chaque salle est pensée pour favoriser la concentration, la collaboration et la productivité de vos équipes de manière autonome et professionnelle.</p>
+                <ul class="features-list">
+                    <li>Plusieurs salles disponibles selon vos besoins</li>
+                    <li>Capacités d'accueil modulables de <strong>30 à 70 personnes</strong></li>
+                    <li>Lumière naturelle ou éclairage tamisé ajustable</li>
+                    <li>Espace idéal pour des comités de direction ou des formations de groupe</li>
+                </ul>
+            </div>
+            <div class="content-image">
+                <div id="sub-img" class="image-placeholder">
+                    <h3>Salles de Réunion & Ateliers</h3>
+                    <p>Espaces collaboratifs de 30 à 70 participants</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Weddings and Banquets -->
+        <div id="weddings" class="content-section">
+            <div class="content-text">
+                <h2>Cérémonies & Mariages</h2>
+                <p>Faites de votre union ou de votre banquet un moment magique et inoubliable. Nos espaces d'exception se métamorphosent pour accueillir votre famille et vos proches dans un décor somptueux.</p>
+                <p>Grâce au savoir-faire créatif de nos équipes, nous assurons une organisation rigoureuse pour que le plus beau jour de votre vie se déroule en toute sérénité.</p>
+                <ul class="features-list">
+                    <li>Configuration de table ronde élégante "Banquet style"</li>
+                    <li>Coordination de repas gastronomiques et buffets sur-mesure</li>
+                    <li>Décoration florale et thématique selon vos souhaits</li>
+                    <li>Espace idéal pour les mariages, anniversaires et réceptions privées</li>
+                </ul>
+            </div>
+            <div class="content-image">
+                <div id="marriage-img" class="image-placeholder">
+                    <h3>Événements Festifs & Banquets</h3>
+                    <p>Ambiance chaleureuse et raffinée pour vos célébrations</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>Itropika Beach Hotel & Spa</strong></p>
+        <p>Tabarka, Tunisie | Tél: <span class="highlight">+216 78 673 300</span> | Fax: +216 78 673 301</p>
+        <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 15px;">&copy; 2026 Itropika Hotel. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        function switchTab(tabId) {
+            // Hide all content sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active status from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show current section and activate button
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
