@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activités & Animations - Itropika Beach Hotel</title>
+    <style>
+        :root {
+            --primary: #e67e22; /* Warm sunny orange */
+            --secondary: #1abc9c; /* Turquoise sea color */
+            --dark: #2c3e50;
+            --light: #f4f6f7;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Banner with Dynamic Gradient Background */
+        .hero {
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.8), rgba(26, 188, 156, 0.8)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            animation: slideDown 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            font-weight: 300;
+            max-width: 700px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+            animation: fadeIn 1.5s ease;
+        }
+
+        /* Waves decoration */
+        .wave-container {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            overflow: hidden;
+        }
+
+        /* Container & Filtering */
+        .container {
+            max-width: 1200px;
+            margin: -50px auto 50px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .filter-nav {
+            display: flex;
+            justify-content: center;
+            background: white;
+            padding: 15px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
+        }
+
+        /* Dynamic Grid Items */
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .activity-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .activity-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: var(--transition);
+        }
+
+        .activity-card:hover .card-img {
+            transform: scale(1.1);
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--secondary);
+            color: white;
+            padding: 6px 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .card-body {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-body h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .card-body p {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .highlights {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #edf2f4;
+            color: var(--dark);
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        /* Hide logic for dynamic filter */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        footer h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.3rem; }
+            .hero p { font-size: 1.1rem; }
+            .filter-nav { flex-direction: column; border-radius: 20px; }
+            .activities-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <h1>Animation & Loisirs</h1>
+        <p>Vivez des moments inoubliables sous le soleil de la Cité du Corail à l'Itropika Beach Hotel</p>
+    </div>
+
+    <div class="container">
+        <!-- Interactive filter menu -->
+        <div class="filter-nav">
+            <button class="filter-btn active" onclick="filterActivities('all')">Tout Voir</button>
+            <button class="filter-btn" onclick="filterActivities('aquatic')">Jeux Aquatiques & Plage</button>
+            <button class="filter-btn" onclick="filterActivities('sports')">Sports & Tournois</button>
+            <button class="filter-btn" onclick="filterActivities('family')">Famille & Enfants</button>
+            <button class="filter-btn" onclick="filterActivities('night')">Soirées & Spectacles</button>
+        </div>
+
+        <!-- Dynamic Activity Cards -->
+        <div class="activities-grid" id="activities-container">
+            
+            <!-- Card 1: Aquatic -->
+            <div class="activity-card" data-category="aquatic">
+                <div class="card-img-wrapper">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=600&q=80');"></div>
+                    <span class="badge">Plage Privée & Piscine</span>
+                </div>
+                <div class="card-body">
+                    <h3>Jeux de Piscine & Waterpolo</h3>
+                    <p>Profitez de notre magnifique piscine extérieure et de notre plage privée surveillée. Notre équipe d'animation dynamique organise quotidiennement des sessions de waterpolo énergiques et des jeux aquatiques rafraîchissants.</p>
+                    <div class="highlights">
+                        <span class="tag">Waterpolo</span>
+                        <span class="tag">Aquagym</span>
+                        <span class="tag">Transats inclus</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Sports -->
+            <div class="activity-card" data-category="sports">
+                <div class="card-img-wrapper">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1593787406536-3676a152d9cb?auto=format&fit=crop&w=600&q=80');"></div>
+                    <span class="badge">Sports & Tournois</span>
+                </div>
+                <div class="card-body">
+                    <h3>Beach-Volley & Football</h3>
+                    <p>Rejoignez nos tournois amicaux sur le sable chaud de la plage privée ou sur nos terrains dédiés. L'endroit parfait pour rester actif tout en rencontrant d'autres vacanciers.</p>
+                    <div class="highlights">
+                        <span class="tag">Tournois quotidiens</span>
+                        <span class="tag">Terrain de Volley</span>
+                        <span class="tag">Esprit d'équipe</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Family / Kids -->
+            <div class="activity-card" data-category="family">
+                <div class="card-img-wrapper">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?auto=format&fit=crop&w=600&q=80');"></div>
+                    <span class="badge">Pour les Enfants</span>
+                </div>
+                <div class="card-body">
+                    <h3>Mini Club Gratuit & Aire de Jeux</h3>
+                    <p>Un paradis pour les plus jeunes ! Vos enfants seront encadrés en toute sécurité par des animateurs qualifiés proposant des ateliers de dessin, des jeux extérieurs et une piscine adaptée à leur taille.</p>
+                    <div class="highlights">
+                        <span class="tag">Club enfants gratuit</span>
+                        <span class="tag">Piscine enfants</span>
+                        <span class="tag">Jeux ludiques</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Night / Shows -->
+            <div class="activity-card" data-category="night">
+                <div class="card-img-wrapper">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=600&q=80');"></div>
+                    <span class="badge">Soirées Thématiques</span>
+                </div>
+                <div class="card-body">
+                    <h3>Soirées Dansantes & Folkloriques</h3>
+                    <p>À la tombée de la nuit, l'hôtel s'anime avec des spectacles traditionnels tunisiens, de la musique live et des soirées dansantes au bar ou au pub. Plaisir et rythme garantis pour toute la famille !</p>
+                    <div class="highlights">
+                        <span class="tag">Folklorique</span>
+                        <span class="tag">Musique Live</span>
+                        <span class="tag">Ambiance Pub</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5: Sports Adrénaline / Extra -->
+            <div class="activity-card" data-category="sports">
+                <div class="card-img-wrapper">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=600&q=80');"></div>
+                    <span class="badge">Activités en Supplément</span>
+                </div>
+                <div class="card-body">
+                    <h3>Tir à l'Arc, Pétanque & Randonnées</h3>
+                    <p>Pour varier les plaisirs, testez votre précision au tir à l'arc ou partagez une partie de pétanque. L'environnement naturel et verdoyant de Tabarka offre également de superbes sorties quad ou randonnées.</p>
+                    <div class="highlights">
+                        <span class="tag">Tir à l'arc</span>
+                        <span class="tag">Pétanque</span>
+                        <span class="tag">Quad (en extra)</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <h2>Itropika Beach Hotel 4*</h2>
+        <p>Zone Touristique, 8110 Tabarka, Tunisie</p>
+        <p style="margin-top: 15px; font-size: 0.85rem; opacity: 0.6;">Découvrez nos programmes quotidiens affichés à la réception de l'hôtel.</p>
+    </footer>
+
+    <script>
+        function filterActivities(category) {
+            // Update active state on navigation buttons
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Select all activity cards
+            const cards = document.querySelectorAll('.activity-card');
+            
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.classList.remove('hidden');
+                } else {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (cardCategory === category) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
